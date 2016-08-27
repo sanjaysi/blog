@@ -19,12 +19,22 @@ class PostShow extends Component {
 			});
 	};
 
-	render() {
-		const {post} = this.props;
-
-		if (!this.props.post) {
+	renderPost(post) {
+		if (!post || post.id != this.props.params.id) {
 			return <div>Loading...</div>;
 		}
+
+		return (
+		<div>
+			<h3>{post.title}</h3>
+			<h6>{post.categories}</h6>
+			<p>{post.content}</p>
+		</div>
+		);
+	};
+
+	render() {
+		const {post} = this.props;
 
 		return(
 			<div>
@@ -34,9 +44,7 @@ class PostShow extends Component {
 					onClick={this.onDeleteClick.bind(this)} >
 					Delete Post
 				</button>
-				<h3>{post.title}</h3>
-				<h6>{post.categories}</h6>
-				<p>{post.content}</p>
+				{this.renderPost(post)}
 			</div>
 		);
 	};
